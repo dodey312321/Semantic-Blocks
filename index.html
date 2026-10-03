@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Website</title>
+    <style>
+        /* Base Reset and Layout */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Top Green Header Banner */
+        .header-banner {
+            background-color: #088235;
+            padding: 20px 40px 10px 40px;
+            text-align: center;
+        }
+
+        .header-banner hr {
+            border: none;
+            border-top: 1px solid #000000;
+            margin: 10px 0;
+        }
+
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: normal;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            font-style: normal;
+            margin-bottom: 10px;
+        }
+
+        /* Navigation Links */
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .nav-link {
+            color: #2b00ff;
+            text-decoration: underline;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: 'Times New Roman', Times, serif;
+            text-transform: uppercase;
+        }
+
+        .nav-link:hover {
+            color: #0000aa;
+        }
+
+        /* Main Content Display Area */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        /* Tab Visibility Control */
+        .tab-page {
+            display: none;
+            width: 100%;
+        }
+
+        .tab-page.active {
+            display: flex;
+        }
+
+        /* Reusable Card Style */
+        .green-card {
+            background-color: #5aa142;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: none;
+        }
+
+        /* --- PAGE 1: HOME --- */
+        #page-home {
+            gap: 20px;
+            align-items: stretch;
+        }
+
+        .home-left {
+            flex: 2.5;
+        }
+
+        .home-right {
+            flex: 1;
+        }
+
+        .card-title-lg {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .home-left p {
+            font-size: 1.4rem;
+            line-height: 1.3;
+        }
+
+        .announcements-list {
+            list-style-type: disc;
+            padding-left: 20px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        /* --- PAGE 2: REGISTRATION --- */
+        #page-registration {
+            justify-content: flex-end;
+            padding-right: 10%;
+        }
+
+        .registration-card {
+            width: 420px;
+            max-width: 100%;
+            text-align: center;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .form-row label {
+            white-space: nowrap;
+        }
+
+        .form-row input[type="text"],
+        .form-row input[type="password"] {
+            width: 120px;
+            padding: 2px 4px;
+            border: 1px solid #777;
+            background-color: #ffffff;
+        }
+
+        .section-label {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 10px 0 5px 0;
+            text-transform: uppercase;
+        }
+
+        .radio-checkbox-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .radio-checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .reg-textarea {
+            width: 100%;
+            height: 90px;
+            padding: 5px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            border: 1px solid #777;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+
+        .others-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .others-row select {
+            padding: 1px;
+            background-color: #fff;
+            border: 1px solid #777;
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .form-buttons button {
+            padding: 1px 8px;
+            font-size: 0.9rem;
+            background-color: #efefef;
+            border: 1px solid #767676;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        /* --- PAGE 3: TABLES --- */
+        #page-table {
+            justify-content: center;
+        }
+
+        .table-card {
+            width: 100%;
+            text-align: center;
+        }
+
+        .student-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background-color: transparent;
+        }
+
+        .student-table th, 
+        .student-table td {
+            border: 1px solid #000000;
+            padding: 4px 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .student-table th {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* --- PAGE 4: PROFILE --- */
+        #page-profile {
+            gap: 20px;
+        }
+
+        .profile-left {
+            flex: 1.8;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-avatar-container {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0 20px 20px;
+            overflow: hidden;
+        }
+
+        .profile-info {
+            font-size: 1.05rem;
+            line-height: 1.4;
+            margin-top: auto;
+        }
+
+        .profile-right {
+            flex: 1;
+            text-align: center;
+        }
+
+        .games-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+
+        /* Footer Section */
+        .footer-banner {
+            background-color: #088235;
+            color: #000000;
+            text-align: center;
+            padding: 25px 10px;
+            margin-top: auto;
+        }
+
+        .footer-title {
+            font-size: 1.05rem;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+
+        .footer-year {
+            font-size: 0.95rem;
+        }
+
+        /* Mobile responsiveness adjustments */
+        @media (max-width: 768px) {
+            #page-home, #page-profile {
+                flex-direction: column;
+            }
+            #page-registration {
+                justify-content: center;
+                padding-right: 0;
+            }
+            .form-row {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .student-table {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Banner Section -->
+    <header class="header-banner">
+        <hr>
+        <h1 class="page-title" id="main-header-title">MY PERSONAL WEBSITE</h1>
+        <p class="page-subtitle">welcome to my website</p>
+        <hr>
+
+        <!-- Navigation Bar -->
+        <nav class="nav-bar">
+            <button class="nav-link" onclick="switchTab('home', 'MY PERSONAL WEBSITE')">HOME</button>
+            <button class="nav-link" onclick="switchTab('registration', 'REGISTRATION')">REGISTRATION</button>
+            <button class="nav-link" onclick="switchTab('table', 'TABLES')">TABLE</button>
+            <button class="nav-link" onclick="switchTab('profile', 'MY PROFILE')">PROFILE</button>
+        </nav>
+    </header>
+
+    <!-- Main Dynamic Content Container -->
+    <main class="main-content">
+
+        <!-- PAGE 1: HOME -->
+        <section id="page-home" class="tab-page active">
+            <div class="green-card home-left">
+                <h2 class="card-title-lg">WELCOME</h2>
+                <p>This website demonstrate semantic HTML, External CSS, Flexbox, Forms, and Tables Use the navigation bar above to explore each page.</p>
+            </div>
+            <div class="green-card home-right">
+                <h2 class="card-title-lg">ANNOUNCEMENTS</h2>
+                <ul class="announcements-list">
+                    <li>DB2</li>
+                    <li>WEBDEV</li>
+                    <li>CSS</li>
+                    <li>NET2</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- PAGE 2: REGISTRATION -->
+        <section id="page-registration" class="tab-page">
+            <div class="green-card registration-card">
+                <h2 class="card-title-lg" style="text-align: center; font-size: 1.3rem; margin-bottom: 12px;">REGISTRATION</h2>
+                <form onsubmit="event.preventDefault();">
+                    <div class="form-row">
+                        <label for="fname">First name:</label>
+                        <input type="text" id="fname" name="fname">
+                        <label for="lname">Last name:</label>
+                        <input type="text" id="lname" name="lname">
+                    </div>
+
+                    <div class="form-row">
+                        <label for="userid">User ID :</label>
+                        <input type="text" id="userid" name="userid">
+                        <label for="pwd">Password:</label>
+                        <input type="password" id="pwd" name="pwd">
+                    </div>
+
+                    <div class="section-label">GENDER:</div>
+                    <div class="radio-checkbox-group">
+                        <label><input type="checkbox" name="gender" value="male"> Male</label>
+                        <label><input type="checkbox" name="gender" value="female"> Female</label>
+                    </div>
+
+                    <div class="section-label">CIVIL STATUS:</div>
+                    <div class="radio-checkbox-group">
+                        <label><input type="radio" name="civil" value="single"> Single</label>
+                        <label><input type="radio" name="civil" value="married"> Married</label>
+                    </div>
+
+                    <textarea class="reg-textarea" placeholder="Enter here..."></textarea>
+
+                    <div class="section-label" style="margin-top: 0;">OTHERS:</div>
+                    <div class="others-row">
+                        <select>
+                            <option value="maths">Maths</option>
+                        </select>
+                        <input type="file" style="font-size: 0.8rem; width: 170px;">
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="submit">Submit</button>
+                        <button type="reset">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- PAGE 3: TABLE -->
+        <section id="page-table" class="tab-page">
+            <div class="green-card table-card">
+                <h2 class="card-title-lg" style="font-size: 2.2rem; margin-bottom: 10px;">STUDENT GRADE REPORT</h2>
+                <table class="student-table">
+                    <thead>
+                        <tr>
+                            <th>SECTION</th>
+                            <th>SUBJECT DESCRIPTION</th>
+                            <th>GRADE</th>
+                            <th>UNITS</th>
+                            <th>REMARKS</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>IT321</td>
+                            <td>Web Development</td>
+                            <td>1.50</td>
+                            <td>3</td>
+                            <td>Passed</td>
+                            <td>Regular</td>
+                        </tr>
+                        <tr>
+                            <td>IT322</td>
+                            <td>Multimedia Systems</td>
+                            <td>1.75</td>
+                            <td>3</td>
+                            <td>Passed</td>
+                            <td>Regular</td>
+                        </tr>
+                        <tr>
+                            <td>IT323A</td>
+                            <td>Software Engineering</td>
+                            <td>2.0</td>
+                            <td>3</td>
+                            <td>Passed</td>
+                            <td>Regular</td>
+                        </tr>
+                        <tr>
+                            <td>IT31B</td>
+                            <td>Full Stack Developer</td>
+                            <td>1.25</td>
+                            <td>3</td>
+                            <td>Passed</td>
+                            <td>Regular</td>
+                        </tr>
+                        <tr>
+                            <td>IT31C</td>
+                            <td>NetWorking</td>
+                            <td>2.00</td>
+                            <td>3</td>
+                            <td>Passed</td>
+                            <td>Regular</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- PAGE 4: PROFILE -->
+        <section id="page-profile" class="tab-page">
+            <div class="green-card profile-left">
+                <h2 class="card-title-lg">MY PROFILE</h2>
+                
+                <!-- Circular Avatar SVG reconstruction -->
+                <div class="profile-avatar-container">
+                    <svg width="150" height="150" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Head -->
+                        <circle cx="50" cy="22" r="10" fill="none" stroke="#ffa500" stroke-width="2.5"/>
+                        <!-- Eyes -->
+                        <circle cx="46" cy="20" r="1" fill="#ffa500"/>
+                        <circle cx="54" cy="20" r="1" fill="#ffa500"/>
+                        <!-- Smile -->
+                        <path d="M 45 24 Q 50 28 55 24" fill="none" stroke="#ffa500" stroke-width="2"/>
+                        
+                        <!-- Red Body Crescent shape -->
+                        <path d="M 50 32 C 20 35, 20 75, 50 78 C 80 65, 75 40, 50 32 Z" fill="none" stroke="#d32f2f" stroke-width="2.5"/>
+                        
+                        <!-- Arms -->
+                        <path d="M 45 35 L 43 55 L 68 55" fill="none" stroke="#ffa500" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M 55 35 L 70 52 L 72 65" fill="none" stroke="#ffa500" stroke-width="2.5" stroke-linecap="round"/>
+                        
+                        <!-- Legs and Feet -->
+                        <path d="M 45 78 L 45 88 L 62 88" fill="none" stroke="#ffa500" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M 55 78 L 55 83 L 70 83" fill="none" stroke="#ffa500" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                </div>
+
+                <div class="profile-info">
+                    <p>Name: San Juan, Romejay G.</p>
+                    <p>Course/Section: BSIT-31B</p>
+                    <p>School: Pambayang Dalubhasaan ng Marilao</p>
+                </div>
+            </div>
+
+            <div class="green-card profile-right">
+                <h2 class="card-title-lg" style="font-size: 1.6rem; text-align: center;">GAMES CURRENTLY PLAYING</h2>
+                <ul class="games-list">
+                    <li>FireWatch</li>
+                    <li>Detroit Become Human</li>
+                    <li>Dota2</li>
+                    <li>Valorant</li>
+                    <li>League of Legends</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer-banner">
+        <p class="footer-title">Website Copyright</p>
+        <p class="footer-year">2026-2027</p>
+    </footer>
+
+    <!-- Tab Switching Logic Script -->
+    <script>
+        function switchTab(tabName, headerTitle) {
+            // Hide all tab pages
+            const pages = document.querySelectorAll('.tab-page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Show selected tab page
+            const selectedPage = document.getElementById('page-' + tabName);
+            if (selectedPage) {
+                selectedPage.classList.add('active');
+            }
+
+            // Update main title header dynamically
+            const headerElement = document.getElementById('main-header-title');
+            if (headerElement) {
+                headerElement.textContent = headerTitle;
+            }
+        }
+    </script>
+</body>
+</html>
